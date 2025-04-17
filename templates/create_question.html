@@ -1,0 +1,98 @@
+{% extends "index.html" %}
+{% block content %}
+
+<style>
+    body {
+        background: linear-gradient(to right, #dfe9f3, #f9f9f9);
+    }
+
+    .create-question-container {
+        min-height: 90vh;
+    }
+
+    .card {
+        border-radius: 12px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        width: 30rem;
+        background: white;
+    }
+
+    .card-body {
+        padding: 2rem;
+    }
+
+    .btn-custom {
+        border-radius: 8px;
+        font-weight: bold;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .btn-custom:hover {
+        transform: scale(1.05);
+    }
+
+    label {
+        font-weight: 600;
+    }
+
+    textarea {
+        resize: none;
+    }
+</style>
+
+<nav class="navbar navbar-expand-lg bg-info shadow-sm">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold text-white" href="/admin">QuizMaster</a>
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+                <a class="nav-link text-white" href="/logout">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="d-flex justify-content-center align-items-center create-question-container">
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title text-center fw-bold text-primary">Add Question</h2>
+            <hr>
+            <form action="/create_question/{{quiz_id}}" method="post">
+                <div class="mb-3">
+                    <label for="question" class="form-label">Question Statement</label>
+                    <textarea class="form-control" id="question" name="question" rows="3" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="option1" class="form-label">Option 1</label>
+                    <input type="text" class="form-control" id="option1" name="option1" required>
+                </div>
+                <div class="mb-3">
+                    <label for="option2" class="form-label">Option 2</label>
+                    <input type="text" class="form-control" id="option2" name="option2" required>
+                </div>
+                <div class="mb-3">
+                    <label for="option3" class="form-label">Option 3</label>
+                    <input type="text" class="form-control" id="option3" name="option3" required>
+                </div>
+                <div class="mb-3">
+                    <label for="option4" class="form-label">Option 4</label>
+                    <input type="text" class="form-control" id="option4" name="option4" required>
+                </div>
+                <div class="mb-3">
+                    <label for="correct_option" class="form-label">Correct Option</label>
+                    <select class="form-control" id="correct_option" name="correct_option" required>
+                        <option value="" selected disabled>Select Correct Option</option>
+                        <option value="1">Option 1</option>
+                        <option value="2">Option 2</option>
+                        <option value="3">Option 3</option>
+                        <option value="4">Option 4</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary w-100 btn-custom">
+                    <i class="bi bi-plus-circle"></i> Add Question
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

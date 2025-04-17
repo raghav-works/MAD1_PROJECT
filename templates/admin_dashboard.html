@@ -1,0 +1,142 @@
+{% extends "index.html" %}
+{% block content %}
+<nav class="navbar navbar-expand-lg bg-info shadow-sm">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold text-white" href="/admin">QuizMaster</a>
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+                <a class="nav-link text-white" href="/admin/summary">Summary</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="/admin_logout">Logout</a>
+            </li>
+        </ul>
+        <form class="d-flex ms-3" role="search" method="get" action="/admin/search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search_query">
+            <button class="btn btn-dark" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="text-center fw-bold text-primary">Admin Dashboard</h3>
+            <p class="text-center text-muted">Manage subjects and track user performance.</p>
+            
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="fw-bold">Subjects</h4>
+                <a href="/create_subject" class="btn btn-primary"><i class="bi bi-plus-lg"></i> Add Subject</a>
+            </div>
+            
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered">
+                    <thead class="table-dark text-center">
+                        <tr>
+                            <th>Subject Name</th>
+                            <th>Description</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      {% for subject in all_subjects %}
+                      <tr>
+                          <td>{{ subject.name }}</td>
+                          <td>{{ subject.description }}</td>
+                          <td class="text-center">
+                              <a href="/view_subject/{{ subject.id }}" class="btn btn-warning btn-sm">
+                                  <i class="bi bi-eye"></i> View
+                              </a>
+                              <!-- Edit Button -->
+                              <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#editSubjectModal{{subject.id}}">
+                                  <i class="bi bi-pencil"></i> Edit
+                              </button>
+                              <!-- Delete Button -->
+                              <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteSubjectModal{{subject.id}}">
+                                  <i class="bi bi-trash"></i> Delete
+                              </button>
+                          </td>
+                      </tr>
+                      
+                      <!-- Edit Modal -->
+                      <div class="modal fade" id="editSubjectModal{{subject.id}}" tabindex="-1" aria-labelledby="editSubjectModalLabel{{subject.id}}" aria-hidden="true">
+                          <div class="modal-dialog">
+                              <div class="modal-content">
+                                  <div class="modal-header">
+                                      <h5 class="modal-title" id="editSubjectModalLabel{{subject.id}}">Edit Subject: {{subject.name}}</h5>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+                                  <div class="modal-body">
+                                      <form action="/edit_subject/{{subject.id}}" method="post">
+                                          <div class="mb-3">
+                                              <label for="name{{subject.id}}" class="form-label">Name</label>
+                                              <input type="text" class="form-control" id="name{{subject.id}}" name="name" required value="{{subject.name}}">
+                                          </div>
+                                          <div class="mb-3">
+                                              <label for="description{{subject.id}}" class="form-label">Description</label>
+                                              <input type="text" class="form-control" id="description{{subject.id}}" name="description" required value="{{subject.description}}">
+                                          </div>
+                                          <button type="submit" class="btn btn-primary">Save Changes</button>
+                                      </form>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      
+                      <!-- Delete Modal -->
+                      <div class="modal fade" id="deleteSubjectModal{{subject.id}}" tabindex="-1" aria-labelledby="deleteSubjectModalLabel{{subject.id}}" aria-hidden="true">
+                          <div class="modal-dialog">
+                              <div class="modal-content">
+                                  <div class="modal-header">
+                                      <h5 class="modal-title" id="deleteSubjectModalLabel{{subject.id}}">Delete Subject: {{subject.name}}</h5>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+                                  <div class="modal-body">
+                                      <p>Are you sure you want to delete the subject "{{subject.name}}"?</p>
+                                      <form action="/delete_subject/{{subject.id}}" method="post">
+                                          <button type="submit" class="btn btn-danger">Delete</button>
+                                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                      </form>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      {% endfor %}
+                      
+                    </tbody>
+                </table>
+            </div>
+
+            <h4 class="fw-bold mt-4">User History</h4>
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered">
+                    <thead class="table-dark text-center">
+                        <tr>
+                            <th>User Name</th>
+                            <th>Quiz Name</th>
+                            <th>Score</th>
+                            <th>Total Score</th>
+                            <th>Chapter</th>
+                            <th>Subject</th>
+                            <th>Time Stamp</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for score in scores %}
+                        <tr>
+                            <td>{{ score.user.name }}</td>
+                            <td>{{ score.quiz.name }}</td>
+                            <td>{{ score.score }}</td>
+                            <td>{{ score.total_score }}</td>
+                            <td>{{ score.quiz.chapter.name }}</td>
+                            <td>{{ score.quiz.chapter.sub.name }}</td>
+                            <td>{{ score.time_stamp }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

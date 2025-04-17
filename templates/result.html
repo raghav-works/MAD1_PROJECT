@@ -1,0 +1,36 @@
+{% extends "index.html" %}
+{% block content %}
+
+<nav class="navbar navbar-expand-lg bg-info shadow-sm mb-4">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold text-white" href="/user">{{ user.name }}</a>
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+                <a class="nav-link text-white fw-semibold" href="/user/history">History</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white fw-semibold" href="/user_logout">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center mb-4">
+            <h3 class="fw-bold text-primary">Result Dashboard</h3>
+            <p class="text-muted">Welcome to the result dashboard!</p>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card shadow-lg border-0 rounded-3">
+                <div class="card-body text-center p-4">
+                    <h5 class="card-title fw-bold text-black">Your Quiz Result</h5>
+                    <p class="card-text fs-5 mt-3">You scored <span class="fw-bold text-success" style="font-size: 1.4rem;">{{ score }}</span> out of <span class="fw-bold text-black" style="font-size: 1.4rem;">{{ total_score }}</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

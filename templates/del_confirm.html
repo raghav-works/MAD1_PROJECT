@@ -1,0 +1,72 @@
+{% extends "index.html" %}
+{% block content %}
+
+<style>
+    body {
+        background: linear-gradient(to right, #ff758c, #ff7eb3);
+    }
+
+    .delete-confirm-container {
+        min-height: 90vh;
+    }
+
+    .card {
+        border-radius: 12px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        width: 26rem;
+        background: white;
+    }
+
+    .card-body {
+        padding: 2rem;
+        text-align: center;
+    }
+
+    .btn-custom {
+        border-radius: 8px;
+        font-weight: bold;
+        transition: all 0.3s ease-in-out;
+        width: 45%;
+    }
+
+    .btn-custom:hover {
+        transform: scale(1.05);
+    }
+
+    .text-warning {
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: #dc3545;
+    }
+</style>
+
+<nav class="navbar navbar-expand-lg bg-info shadow-sm">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold text-white" href="/admin">QuizMaster</a>
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+                <a class="nav-link text-white" href="/logout">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="d-flex justify-content-center align-items-center delete-confirm-container">
+    <div class="card">
+        <div class="card-body">
+            <h3 class="card-title text-danger fw-bold">Delete Confirmation</h3>
+            <hr>
+            <p class="text-warning">Are you sure you want to delete this? This action cannot be undone.</p>
+            <form method="post">
+                <button type="submit" class="btn btn-danger btn-custom">
+                    <i class="bi bi-trash"></i> Delete
+                </button>
+                <a href="/admin" class="btn btn-secondary btn-custom">
+                    <i class="bi bi-x-circle"></i> Cancel
+                </a>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

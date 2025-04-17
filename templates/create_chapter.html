@@ -1,0 +1,72 @@
+{% extends "index.html" %}
+{% block content %}
+
+<style>
+    body {
+        background: linear-gradient(to right, #dfe9f3, #f9f9f9);
+    }
+
+    .create-chapter-container {
+        min-height: 90vh;
+    }
+
+    .card {
+        border-radius: 12px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        width: 28rem;
+        background: white;
+    }
+
+    .card-body {
+        padding: 2rem;
+    }
+
+    .btn-custom {
+        border-radius: 8px;
+        font-weight: bold;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .btn-custom:hover {
+        transform: scale(1.05);
+    }
+
+    label {
+        font-weight: 600;
+    }
+</style>
+
+<nav class="navbar navbar-expand-lg bg-info shadow-sm">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold text-white" href="/admin">QuizMaster</a>
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+                <a class="nav-link text-white" href="/logout">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="d-flex justify-content-center align-items-center create-chapter-container">
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title text-center fw-bold text-primary">Create Chapter</h2>
+            <hr>
+            <form action="/create_chapter/{{subject_id}}" method="post">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Chapter Name</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary w-100 btn-custom">
+                    <i class="bi bi-plus-circle"></i> Create Chapter
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

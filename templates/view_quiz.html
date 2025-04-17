@@ -1,0 +1,95 @@
+{% extends "index.html" %}
+{% block content %}
+<nav class="navbar navbar-expand-lg bg-info shadow-sm">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold text-white" href="/admin">QuizMaster</a>
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+                <a class="nav-link text-white" href="/admin_logout">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="text-center fw-bold text-primary">Questions Dashboard</h3>
+            <p class="text-center text-muted">Manage and organize questions for this quiz.</p>
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="fw-bold">Quiz: {{ quiz.name }}</h4>
+                <a href="/create_question/{{ quiz.id }}" class="btn btn-primary">
+                    <i class="bi bi-plus-lg"></i> Add Questions
+                </a>
+            </div>
+
+            {% if questions|length > 0 %}
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered">
+                    <thead class="table-dark text-center">
+                        <tr>
+                            <th>Question</th>
+                            <th>Option 1</th>
+                            <th>Option 2</th>
+                            <th>Option 3</th>
+                            <th>Option 4</th>
+                            <th>Correct Option</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for que in questions %}
+                        <tr>
+                            <td>{{ que.question }}</td>
+                            <td>{{ que.option1 }}</td>
+                            <td>{{ que.option2 }}</td>
+                            <td>{{ que.option3 }}</td>
+                            <td>{{ que.option4 }}</td>
+                            <td class="fw-bold text-success">{{ que.correct_option }}</td>
+                            <td class="text-center">
+                                <a href="/edit_question/{{ que.id }}" class="btn btn-success btn-sm">
+                                    <i class="bi bi-pencil"></i> Edit
+                                </a>
+                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                    data-bs-target="#deleteQuestionModal{{que.id}}">
+                                    <i class="bi bi-trash3"></i> Delete
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Delete Modal -->
+                        <div class="modal fade" id="deleteQuestionModal{{que.id}}" tabindex="-1"
+                            aria-labelledby="deleteQuestionModalLabel{{que.id}}" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title fw-bold" id="deleteQuestionModalLabel{{que.id}}">
+                                            Delete Question: {{que.question}}
+                                        </h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Are you sure you want to delete the question "{{que.question}}"?</p>
+                                        <div class="d-flex">
+                                            <form action="/delete_question/{{ que.id }}" method="post">
+                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                            </form>
+                                            <button type="button" class="btn btn-secondary ms-1" data-bs-dismiss="modal">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <p class="text-center text-danger fw-bold bg-warning p-2 rounded">No questions found for this quiz.</p>            
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "index.html" %}
+{% block content %}
+
+<nav class="navbar navbar-expand-lg bg-info shadow-sm mb-4">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold text-white" href="/user">QuizMaster</a>
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+                <a class="nav-link text-white fw-semibold" href="/user_logout">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <div class="text-center mb-4">
+        <h2 class="fw-bold text-danger">{{ user_name }}'s Quiz Summary</h2>
+        <p class="text-muted">Review your quiz activity and subject distribution</p>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-lg rounded-3">
+                <img src="{{ url_for('static', filename='imgs/user_imgs1.png') }}" class="card-img-top" alt="User Quizzes per Subject">
+                <div class="card-body text-center">
+                    <h5 class="card-title fw-semibold">Your Quiz Attempts per Subject</h5>
+                    <p class="card-text text-muted">This chart shows the number of quizzes you have attempted for each subject.</p>
+                </div>
+            </div>
+        </div>
+        {% if img_2 %}
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-lg rounded-3">
+                <img src="{{ url_for('static', filename='imgs/user_imgs2.png') }}" class="card-img-top" alt="User Quiz Distribution">
+                <div class="card-body text-center">
+                    <h5 class="card-title fw-semibold">Your Quiz Distribution</h5>
+                    <p class="card-text text-muted">This pie chart shows the percentage of your quiz attempts across subjects.</p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

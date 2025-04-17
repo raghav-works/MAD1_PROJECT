@@ -1,0 +1,53 @@
+{% extends "index.html" %}
+{% block content %}
+
+<nav class="navbar navbar-expand-lg bg-info shadow-sm mb-4">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold text-white" href="/user">{{ user.name }}</a>
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+                <a class="nav-link text-white fw-semibold" href="/user_logout">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-10 text-center mb-4">
+            <h3 class="fw-bold text-primary">User History</h3>
+            <p class="text-muted">Welcome to your quiz history!</p>
+        </div>
+
+        <div class="col-md-10">
+            <div class="table-responsive shadow-lg rounded-3 p-3 bg-white">
+                <table class="table table-hover text-center">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Quiz Name</th>
+                            <th>Your Score</th>
+                            <th>Total Score</th>
+                            <th>Date of Quiz</th>
+                            <th>Chapter</th>
+                            <th>Subject</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for score in scores %}
+                        <tr>
+                            <td class="fw-bold">{{ score.quiz.name }}</td>
+                            <td class="text-success fw-semibold">{{ score.score }}</td>
+                            <td class="fw-semibold">{{ score.total_score }}</td>
+                            <td class="text-muted">{{ score.time_stamp }}</td>
+                            <td class="fw-semibold">{{ score.quiz.chapter.name }}</td>
+                            <td class="fw-semibold">{{ score.quiz.chapter.sub.name }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
